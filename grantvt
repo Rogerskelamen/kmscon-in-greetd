@@ -1,0 +1,38 @@
+#!/bin/sh
+set -u -e
+
+match() {
+    case $2 in $1);; *) false; esac
+}
+
+reterr() {
+    printf '%s\n' "$0: $2" >&2
+    return "$1"
+}
+
+usage() {
+    printf '%s\n' "usage: sudo $0 [-r] fd fd<tty" >&2
+}
+
+restore=0
+while getopts r opt; do
+	case $opt in
+	r) restore=1;;
+	*) usage; exit 1
+	esac
+done
+
+shift $((OPTIND - 1))
+if [ $# -ne 1 ] || match '*[!0-9]*' "$1"; then
+	usage
+    exit 1
+fi
+
+user=root
+if [ $restore = 0 ]; then
+	[ -n "${SUDO_USER:+.}" ] && user=$SUDO_USER || reterr 1 "not ran using sudo"
+fi
+
+path=`tty` <&$1 || reterr $? "cannot determine path"
+match '/dev/tty[1-9]*' "$path" || reterr 1 "tty not opened as specific vt path"
+chown -- "$user" "$path" || reterr $? "cannot set vt owner"

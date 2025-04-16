@@ -1,0 +1,4 @@
+Cmnd_Alias GRANTVT = @PREFIX@/sbin/grantvt
+Defaults!GRANTVT closefrom=4
+
+@GREETD_USER@ ALL = NOPASSWD: GRANTVT

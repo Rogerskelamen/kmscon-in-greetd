@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+	printf '%s\n' "usage: $0 cmd [arg...]" >&2
+	exit 1
+fi
+
+# -p isn't supported in Busybox ps
+setppid='ppid=$(ps -o pid=,ppid= | awk -v p=$$ "p==\$1 {print \$2}")'
+shcmd='command "$@"; '$setppid'; kill $ppid; wait $ppid'
+exec kmscon -l --no-reset-env --no-switchvt -- /bin/sh -c "$shcmd" _ "$@"

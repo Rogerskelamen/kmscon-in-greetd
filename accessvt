@@ -1,0 +1,19 @@
+#!/bin/sh
+set -u -e
+
+reterr() {
+    printf '%s\n' "$0: $2" >&2
+    return "$1"
+}
+
+if [ $# -eq 0 ]; then
+	printf '%s\n' "usage: $0 cmd [arg...]" >&2
+	exit 1
+fi
+
+sudo grantvt 3 3<&1 || reterr $? "cannot modify VT permissions"
+cmdstat=0
+command "$@" || cmdstat=$?
+
+sudo grantvt -r 3 3<&1 || reterr $? "cannot restore VT permissions"
+exit $cmdstat
