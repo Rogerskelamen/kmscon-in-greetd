@@ -24,4 +24,4 @@ clean:
 	rm -f grantvt.sudoers
 
 grantvt.sudoers: grantvt.sudoers.in
-	sed -e "s|@PREFIX@|$(PREFIX)|" -e "s|@GREETD_USER@|$(GREETD_USER)" $? > $@
+	sed -e "s|@PREFIX@|$(PREFIX)|" -e "s|@GREETD_USER@|$(GREETD_USER)|" $? > $@

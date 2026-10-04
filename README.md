@@ -1,5 +1,8 @@
 # kmscon in greetd
 
+> This repo is forked from [niten94/kmscon-in-greetd](https://github.com/niten94/kmscon-in-greetd).
+> Only a few modifications have been made.
+
 This repository contains shells scripts and a sudoers file intended to be used
 when running [greetd](https://sr.ht/~kennylevinsen/greetd) greeters under
 [kmscon](https://github.com/Aetf/kmscon), as part of one possible workaround
@@ -38,7 +41,7 @@ different (less restrictive?) check to support it.
 ## Setup
 
 1. Run `make` and set macros defined at the top of the Makefile in arguments
-   if needed, e.g. `make GREETD_USER=_greetd`.
+   if needed, e.g. `make GREETD_USER=greeter`.
 2. Run `sudo make install` with same macros specified before `install`.
 3. Disable kmscon service if installed.
 4. Add greeter to groups with access to files below:
