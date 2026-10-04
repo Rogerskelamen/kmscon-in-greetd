@@ -1,5 +1,7 @@
 Cmnd_Alias GRANTVT = @PREFIX@/sbin/grantvt
+Cmnd_Alias POWER = /usr/bin/systemctl reboot, /usr/bin/systemctl poweroff
+
 Defaults!GRANTVT closefrom=4
 Defaults!GRANTVT !use_pty
 
-@GREETD_USER@ ALL = NOPASSWD: GRANTVT
+@GREETD_USER@ ALL = NOPASSWD: GRANTVT, POWER

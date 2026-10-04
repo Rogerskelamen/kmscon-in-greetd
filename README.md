@@ -52,6 +52,11 @@ different (less restrictive?) check to support it.
    e.g. `accessvt kmscon-fg tuigreet -t`.
 6. Enable greetd service.
 
+## Bonus
+
+The `reboot/poweroff` permissions are also given to `grantvt`,
+just add `--power-reboot 'sudo -n /usr/bin/systemctl reboot' --power-shutdown 'sudo -n /usr/bin/systemctl poweroff'` to `command`.
+
 ## Issues
 
 Please report issues or ask questions in this repository only, unless it can be
